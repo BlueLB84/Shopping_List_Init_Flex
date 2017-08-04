@@ -1,18 +1,32 @@
 // event handler to grab input text and add new shopping list item
+
+
 function newItemSubmitHandler() {
     $('#js-shopping-list-form button').click(function(event){
         event.preventDefault();
-        console.log('submit button clicked');
         const addItemName = $('.js-shopping-list-entry').val();
-        console.log(addItemName);
-        const templateStr = newItemTemplate(addItemName);
-        $('.shopping-list').append(templateStr);
-        $('.js-shopping-list-entry').val("");
+        console.log($('ul .shopping-item').text());
+        if (addItemName === '') {
+            return alert(`Must enter a new shopping list item :)`);
+        } else if ($('ul .shopping-item').text().includes(`${addItemName}`)) {
+            $('.js-shopping-list-entry').val("");
+            return alert(`${addItemName} is already on the shopping list`);
+        } else {
+            addItemFunction(addItemName);
+            $('.js-shopping-list-entry').val("");
+        }
     })
 }
 
 
-// template to insert into html with new shopping list item
+function addItemFunction(item) {
+    const templateStr = newItemTemplate(item);
+    $('.shopping-list').append(templateStr);
+};
+
+
+
+        // template to insert into html with new shopping list item
 function newItemTemplate(item) {
     const newItemTemplateStr = (`<li>
         <span class="shopping-item">${item}</span>
@@ -37,7 +51,9 @@ function checkedItemHandler() {
 
 // event handler for deleted items
 function deleteItemHandler() {
-
+    $('ul').on('click', '.shopping-item-delete',function(event){
+        $(event.currentTarget).closest('li').remove();
+    })
 }
 
 
