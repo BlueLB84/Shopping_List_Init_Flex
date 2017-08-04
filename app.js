@@ -1,6 +1,4 @@
 // event handler to grab input text and add new shopping list item
-
-
 function newItemSubmitHandler() {
     $('#js-shopping-list-form button').click(function(event){
         event.preventDefault();
@@ -25,8 +23,7 @@ function addItemFunction(item) {
 };
 
 
-
-        // template to insert into html with new shopping list item
+// template to insert into html with new shopping list item
 function newItemTemplate(item) {
     const newItemTemplateStr = (`<li>
         <span class="shopping-item">${item}</span>
