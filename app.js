@@ -3,18 +3,36 @@ function newItemSubmitHandler() {
     $('#js-shopping-list-form button').click(function(event){
         event.preventDefault();
         const addItemName = $('.js-shopping-list-entry').val();
-        console.log($('ul .shopping-item').text());
+        console.log($('ul .shopping-item'));
+        const testItemIncludedArr = testItems();
+        
+        
         if (addItemName === '') {
             return alert(`Must enter a new shopping list item :)`);
+        } else if (testItemIncludedArr.includes(`${addItemName}`)) {
+            return alert(`${addItemName} is on your shopping list.`)
         } else if ($('ul .shopping-item').text().includes(`${addItemName}`)) {
             $('.js-shopping-list-entry').val("");
-            return alert(`${addItemName} is already on the shopping list`);
+            return alert(`${addItemName} or something similar is already on the shopping list`);
         } else {
             addItemFunction(addItemName);
             $('.js-shopping-list-entry').val("");
         }
+        $('.js-shopping-list-entry').val("")
     })
 }
+
+function testItems () {
+    const itemTextArr = [];
+    let DOMitemArr = ($('ul .shopping-item'));
+    for (let i = 0; i <= DOMitemArr.length; i++) {
+        itemTextArr.push($(DOMitemArr[i]).text());
+    }
+    console.log(itemTextArr);
+    return itemTextArr;
+}
+
+
 
 
 function addItemFunction(item) {
